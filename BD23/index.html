@@ -629,7 +629,30 @@
       font-size:11px;
       opacity:.8;
     }
+/* 🔧 手機版：讓靈體卡在上、角色卡在下 */
+@media (max-width: 768px){
+  body{
+    padding: 12px;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
 
+  .app-wrap{
+    flex-direction: column;   /* 重點：改成上下排 */
+    align-items: center;      /* 置中 */
+  }
+
+  .preview-column{
+    width: 100%;
+    max-width: 420px;
+    margin-bottom: 16px;      /* 上下留一點距離 */
+  }
+
+  .screen-column{
+    width: 100%;
+    max-width: 420px;
+  }
+}
   </style>
 </head>
 <body>
