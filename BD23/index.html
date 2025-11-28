@@ -1322,6 +1322,18 @@ if (btnBackHome) {
       document.addEventListener("click",resumeBgm,{once:true});
       document.addEventListener("touchstart",resumeBgm,{once:true});
     })();
+    // ⭐ 下載靈體卡（PNG）
+document.getElementById("btnDownloadSpirit").addEventListener("click", () => {
+  const card = document.querySelector(".spirit-card");
+  if (!card) return;
+
+  html2canvas(card, { backgroundColor: null }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "spirit-card.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+});
     // ⭐ 下載角色卡 PNG
 document.getElementById("btnDownloadEntryCard").addEventListener("click", () => {
   const entryCard = document.getElementById("entryCard");
