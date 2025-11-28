@@ -634,24 +634,35 @@
 </head>
 <body>
   <!-- 開場儀式第一頁：覆蓋層 -->
-  <div id="entryIntroOverlay" class="entry-intro-overlay">
-    <div class="entry-intro-card">
-      <h1 class="entry-intro-title">Born in 2002：Level 23</h1>
-      <div class="entry-intro-text">
-        歡迎來到 Alulayhay．Sawawan 鄭彥軍的 23 歲生日儀式登入系統。
-      </div>
-      <div class="entry-intro-time">
-        時間：12/20 晚上 10：30<br/>
-        地點：中壢好樂迪 KTV
-      </div>
-      <button id="entryIntroStart" class="entry-intro-btn">
-        開始登入儀式
-      </button>
-      <div class="entry-intro-hint">
-        按下後進入玩家登入頁，完成祖靈認證與角色創建。
-      </div>
+<div id="entryIntroOverlay" class="entry-intro-overlay">
+  <div class="entry-intro-card">
+    <h1 class="entry-intro-title">Born in 2002：Level 23</h1>
+
+    <div class="entry-intro-text">
+      歡迎來到 Alulayhay．Sawawan 鄭彥軍的 23 歲生日儀式登入系統。
+    </div>
+
+    <div class="entry-intro-time">
+      時間：12/20 晚上 10：30<br/>
+      地點：中壢好樂迪 KTV
+    </div>
+
+    <!-- 參加按鈕 -->
+    <button id="btnAttendYes" class="entry-intro-btn">
+      ✔ 我要參加並開始登入儀式
+    </button>
+
+    <!-- 不參加按鈕 -->
+    <button id="btnAttendNo" class="entry-intro-btn" 
+            style="background:rgba(255,255,255,.1); color:#ffe9b0; margin-top:6px;">
+      ✘ 不方便參加，但想給壽星一句話
+    </button>
+
+    <div class="entry-intro-hint">
+      參加需要進行登入與創角 / 不參加也可留下祝福。
     </div>
   </div>
+</div>
 
   <div class="bg-stars"></div>
   <div class="bg-tribal"></div>
@@ -773,9 +784,29 @@
         <div class="small-hint">
           系統會將角色資訊送到 Google 表單，也會存在本機方便之後生成圖鑑與入場核對。
         </div>
+      </section> <!-- 角色卡頁 -->
+       <!-- 🙏 不方便參加留言頁（新增這段） -->
+      <section id="screen-no-attend" class="screen">
+        <h1 class="screen-title">人不到・心意到</h1>
+        <div class="screen-sub">
+          雖然這次無法參加，但壽星會收到你的心意留言 ❤️
+        </div>
+
+        <label>你的名字（可填可不填）</label>
+        <input id="noAttendName" type="text" placeholder="你的名字（選填）">
+
+        <label>想說的話</label>
+        <textarea id="noAttendMessage" placeholder="想傳達給壽星的一段話～"></textarea>
+
+        <button id="btnSubmitNoAttend" class="btn-primary">送出心意留言</button>
+
+        <div class="small-hint">
+          你的留言將會送到表單與壽星。
+        </div>
       </section>
 
-      <!-- 角色卡頁 -->
+    </div> <!-- 這裡是 screen-column 結束 -->
+  </div> <!-- app-wrap 結束 -->
       <section id="screen-entry-card" class="screen">
         <div class="entry-card" id="entryCard">
           <h1 class="entry-card-title">Born in 2002：Level 23</h1>
@@ -914,6 +945,40 @@
         // showScreen("screen-login");
       });
     }
+    // 按下「我要參加」
+document.getElementById("btnAttendYes").addEventListener("click", ()=>{
+  entryIntroOverlay.classList.add("hidden");
+  showScreen("screen-login");
+});
+
+// 按下「不方便參加」
+document.getElementById("btnAttendNo").addEventListener("click", ()=>{
+  entryIntroOverlay.classList.add("hidden");
+  showScreen("screen-no-attend");
+});
+
+// 不參加：留言送出
+document.getElementById("btnSubmitNoAttend").addEventListener("click", ()=>{
+  const name = document.getElementById("noAttendName").value.trim();
+  const msg  = document.getElementById("noAttendMessage").value.trim();
+
+  if(!msg){
+    showToast("請寫一句想說的話再送出 🙏");
+    return;
+  }
+
+  // 用你現成 Google 表單欄位 message
+  const fd = new FormData();
+  fd.append("entry.232807868", msg + (name? `（來自：${name}）`:""));
+
+  fetch(
+    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfV50KRQIQW5MzlvodEHaNSRWxAbr9UNhioqpqRuA9ZftYbCg/formResponse",
+    { method:"POST", body:fd, mode:"no-cors" }
+  );
+
+  showToast("已送出心意留言 ✔");
+  document.getElementById("noAttendMessage").value="";
+});
     // === 全域狀態 ===
     const appState={
       avatarDataUrl:null,
