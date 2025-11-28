@@ -949,30 +949,26 @@
       message:"entry.232807868"
     };
 
-    async function submitToGoogle(data){
-      const fd=new FormData();
-      fd.append(GOOGLE_FIELDS.playerName,data.playerName||"");
-      fd.append(GOOGLE_FIELDS.playerPhone,data.playerPhone||"");
-      fd.append(GOOGLE_FIELDS.charName,data.charName||"");
-      fd.append(GOOGLE_FIELDS.tribe,data.tribe||"");
-      fd.append(GOOGLE_FIELDS.role,data.role||"");
-      fd.append(GOOGLE_FIELDS.element,data.element||"");
-      fd.append(GOOGLE_FIELDS.str,data.stats.str||"");
-      fd.append(GOOGLE_FIELDS.int,data.stats.int||"");
-      fd.append(GOOGLE_FIELDS.cha,data.stats.cha||"");
-      fd.append(GOOGLE_FIELDS.luck,data.stats.luck||"");
-      fd.append(GOOGLE_FIELDS.message,data.message||"");
+   async function submitToGoogle(data){
+  const fd = new FormData();
+  fd.append(GOOGLE_FIELDS.playerName, data.playerName || "");
+  fd.append(GOOGLE_FIELDS.playerPhone, data.playerPhone || "");
+  fd.append(GOOGLE_FIELDS.charName, data.charName || "");
+  fd.append(GOOGLE_FIELDS.tribe, data.tribe || "");
+  fd.append(GOOGLE_FIELDS.role, data.role || "");
+  fd.append(GOOGLE_FIELDS.element, data.element || "");
+  fd.append(GOOGLE_FIELDS.message, data.message || "");
 
-      try{
-        await fetch(GOOGLE_FORM_URL,{
-          method:"POST",
-          body:fd,
-          mode:"no-cors"
-        });
-      }catch(e){
-        console.warn("送出 Google 表單失敗（前端允許忽略）",e);
-      }
-    }
+  try {
+    await fetch(GOOGLE_FORM_URL, {
+      method: "POST",
+      body: fd,
+      mode: "no-cors"
+    });
+  } catch (e) {
+    console.warn("送出 Google 表單失敗（前端允許忽略）", e);
+  }
+}
 
     form.addEventListener("submit",async e=>{
       e.preventDefault();
@@ -1002,10 +998,6 @@
       const overlay=document.getElementById("completionOverlay");
       if(!overlay) return;
 
-      document.getElementById("cStr").textContent=data.stats.str||"-";
-      document.getElementById("cInt").textContent=data.stats.int||"-";
-      document.getElementById("cCha").textContent=data.stats.cha||"-";
-      document.getElementById("cLuck").textContent=data.stats.luck||"-";
 
       const miniName=document.getElementById("cmcCharName");
       const miniRole=document.getElementById("cmcRole");
