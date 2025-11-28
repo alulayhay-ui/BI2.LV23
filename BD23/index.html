@@ -93,7 +93,13 @@
       box-shadow:
         0 0 24px rgba(0,0,0,.9),
         0 0 32px rgba(91,228,255,.38);
-    }
+      animation:spiritCardFloat 7s ease-in-out infinite;
+}
+@keyframes spiritCardFloat{
+  0%{transform:translateY(4px);}
+  50%{transform:translateY(-6px);}
+  100%{transform:translateY(4px);}
+}
     .spirit-card::before{
       content:"LEVEL 23";
       position:absolute;
@@ -125,6 +131,8 @@
       display:flex;
       align-items:center;
       justify-content:center;
+      border-radius:26px;   /* 新增：讓內框有圓角 */
+  overflow:hidden;      /* 新增：超出邊界的照片會被裁掉 */
     }
     .spirit-portrait{
       width:100%;
@@ -902,10 +910,6 @@
       tribe:document.getElementById("tribe"),
       role:document.getElementById("role"),
       element:document.getElementById("element"),
-      str:document.getElementById("statStr"),
-      int:document.getElementById("statInt"),
-      cha:document.getElementById("statCha"),
-      luck:document.getElementById("statLuck"),
       message:document.getElementById("message")
     };
 
