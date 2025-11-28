@@ -875,15 +875,20 @@
           </div>
 
           <div class="actions">
-            <button id="btnBackToCreate" class="link-btn">← 回到角色創建</button>
+  <button id="btnBackToCreate" class="link-btn">← 回到角色創建</button>
 
-              <!-- ✅ 新增：回到首頁按鈕 -->
+  <!-- ⭐ 下載靈體 GIF -->
+  <button id="btnDownloadSpirit" class="link-btn">⬇ 下載靈體卡 GIF</button>
+
+  <!-- ⭐ 下載角色卡 PNG -->
+  <button id="btnDownloadEntryCard" class="link-btn">⬇ 下載角色卡</button>
+
   <button id="btnBackHome" class="link-btn">⟲ 回到首頁</button>
-            
-            <a href="https://www.instagram.com/allhsww/?hl=zh-tw" target="_blank" class="link-btn link-btn-ig">
-              IG｜有問題私訊
-            </a>
-          </div>
+
+  <a href="https://www.instagram.com/allhsww/?hl=zh-tw" target="_blank" class="link-btn link-btn-ig">
+    IG｜有問題私訊
+  </a>
+</div>
         </div>
       </section>
     </div>
@@ -1317,6 +1322,20 @@ if (btnBackHome) {
       document.addEventListener("click",resumeBgm,{once:true});
       document.addEventListener("touchstart",resumeBgm,{once:true});
     })();
+    // ⭐ 下載角色卡 PNG
+document.getElementById("btnDownloadEntryCard").addEventListener("click", () => {
+  const entryCard = document.getElementById("entryCard");
+  if (!entryCard) return;
+
+  html2canvas(entryCard, { backgroundColor: null }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "entry-card.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+});
   </script>
+  <!-- ⭐ html2canvas 放在這裡！ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
