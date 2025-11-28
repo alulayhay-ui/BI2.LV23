@@ -4,6 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Born in 2002：Level 23 ─ 儀式登入系統</title>
+      /* === 開場儀式 Overlay === */
+    .entry-intro-overlay{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:40;
+      background:radial-gradient(circle at top, rgba(3,10,30,.95), rgba(0,0,0,.96));
+      backdrop-filter:blur(16px);
+      transition:opacity .4s ease, transform .4s ease;
+    }
+    .entry-intro-overlay.hidden{
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(10px);
+    }
+
+    .entry-intro-card{
+      width:100%;
+      max-width:420px;
+      margin:0 18px;
+      border-radius:24px;
+      padding:22px 18px 18px;
+      background:linear-gradient(145deg, rgba(5,8,22,.98), rgba(7,15,35,.98));
+      border:1px solid rgba(255,200,135,.9);
+      box-shadow:0 0 26px rgba(255,200,135,.7), 0 0 40px rgba(0,0,0,.9);
+      text-align:center;
+    }
+    .entry-intro-title{
+      font-size:22px;
+      font-weight:700;
+      color:#ffc857;
+      text-shadow:0 0 12px rgba(255,200,87,.8);
+      margin:0 0 10px;
+    }
+    .entry-intro-text{
+      font-size:13px;
+      line-height:1.6;
+      margin-bottom:14px;
+    }
+    .entry-intro-time{
+      font-size:14px;
+      line-height:1.6;
+      margin-bottom:16px;
+    }
+    .entry-intro-btn{
+      border:none;
+      border-radius:999px;
+      padding:10px 16px;
+      font-size:15px;
+      font-weight:600;
+      width:100%;
+      background:linear-gradient(135deg,#6ab5ff,#ffc857);
+      color:#050816;
+      box-shadow:0 0 18px rgba(111,189,255,.7);
+      cursor:pointer;
+      margin-bottom:8px;
+    }
+    .entry-intro-hint{
+      font-size:11px;
+      opacity:.8;
+    }
+
   <style>
     :root{
       --accent:#5ba8ff;
@@ -570,8 +634,29 @@
   </style>
 </head>
 <body>
+  <!-- 開場儀式第一頁：覆蓋層 -->
+  <div id="entryIntroOverlay" class="entry-intro-overlay">
+    <div class="entry-intro-card">
+      <h1 class="entry-intro-title">Born in 2002：Level 23</h1>
+      <div class="entry-intro-text">
+        歡迎來到 Alulayhay．Sawawan 鄭彥軍的 23 歲生日儀式登入系統。
+      </div>
+      <div class="entry-intro-time">
+        時間：12/20 晚上 10：30<br/>
+        地點：中壢好樂迪 KTV
+      </div>
+      <button id="entryIntroStart" class="entry-intro-btn">
+        開始登入儀式
+      </button>
+      <div class="entry-intro-hint">
+        按下後進入玩家登入頁，完成祖靈認證與角色創建。
+      </div>
+    </div>
+  </div>
+
   <div class="bg-stars"></div>
   <div class="bg-tribal"></div>
+  <!-- 下面就是原本的 app-wrap ... -->
 
   <div class="app-wrap">
     <!-- 左：靈體風預設立繪 -->
@@ -821,7 +906,17 @@
       t.classList.add("show");
       setTimeout(()=>t.classList.remove("show"),2000);
     }
-
+ // === 開場儀式 Overlay 關閉 ===
+    const entryIntroOverlay = document.getElementById("entryIntroOverlay");
+    const entryIntroStart = document.getElementById("entryIntroStart");
+    if(entryIntroOverlay && entryIntroStart){
+      entryIntroStart.addEventListener("click", ()=>{
+        entryIntroOverlay.classList.add("hidden"); // 做淡出
+        // 底下原本第一頁是 screen-intro，這裡不用切換畫面
+        // 如果你未來改成一進來就要直接到登入畫面，可以改成：
+        // showScreen("screen-login");
+      });
+    }
     // === 全域狀態 ===
     const appState={
       avatarDataUrl:null,
