@@ -1310,18 +1310,26 @@ if (btnBackHome) {
 }
 
     // === BGM：同一頁，不會因畫面切換而重播 ===
-    (function(){
-      const bgm=document.getElementById("bgm");
-      if(!bgm) return;
-      bgm.volume=0.15; // 不要太大聲
-      function resumeBgm(){
-        if(bgm.paused){
-          bgm.play().catch(()=>{});
-        }
-      }
-      document.addEventListener("click",resumeBgm,{once:true});
-      document.addEventListener("touchstart",resumeBgm,{once:true});
-    })();
+    const bgm = document.getElementById("bgm");
+if (bgm) {
+  bgm.volume = 0.15;
+}
+
+// 按下「我要參加」
+document.getElementById("btnAttendYes").addEventListener("click", ()=>{
+  if (bgm && bgm.paused) {
+    bgm.play().catch(()=>{});
+  }
+  entryIntroOverlay.classList.add("hidden");
+  showScreen("screen-login");
+});
+    document.getElementById("btnAttendNo").addEventListener("click", ()=>{
+  if (bgm && bgm.paused) {
+    bgm.play().catch(()=>{});
+  }
+  entryIntroOverlay.classList.add("hidden");
+  showScreen("screen-no-attend");
+});
     // ⭐ 下載靈體卡（PNG）
 document.getElementById("btnDownloadSpirit").addEventListener("click", () => {
   const card = document.querySelector(".spirit-card");
