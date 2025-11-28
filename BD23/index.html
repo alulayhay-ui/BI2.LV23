@@ -4,70 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Born in 2002：Level 23 ─ 儀式登入系統</title>
-      /* === 開場儀式 Overlay === */
-    .entry-intro-overlay{
-      position:fixed;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:40;
-      background:radial-gradient(circle at top, rgba(3,10,30,.95), rgba(0,0,0,.96));
-      backdrop-filter:blur(16px);
-      transition:opacity .4s ease, transform .4s ease;
     }
-    .entry-intro-overlay.hidden{
-      opacity:0;
-      pointer-events:none;
-      transform:translateY(10px);
-    }
-
-    .entry-intro-card{
-      width:100%;
-      max-width:420px;
-      margin:0 18px;
-      border-radius:24px;
-      padding:22px 18px 18px;
-      background:linear-gradient(145deg, rgba(5,8,22,.98), rgba(7,15,35,.98));
-      border:1px solid rgba(255,200,135,.9);
-      box-shadow:0 0 26px rgba(255,200,135,.7), 0 0 40px rgba(0,0,0,.9);
-      text-align:center;
-    }
-    .entry-intro-title{
-      font-size:22px;
-      font-weight:700;
-      color:#ffc857;
-      text-shadow:0 0 12px rgba(255,200,87,.8);
-      margin:0 0 10px;
-    }
-    .entry-intro-text{
-      font-size:13px;
-      line-height:1.6;
-      margin-bottom:14px;
-    }
-    .entry-intro-time{
-      font-size:14px;
-      line-height:1.6;
-      margin-bottom:16px;
-    }
-    .entry-intro-btn{
-      border:none;
-      border-radius:999px;
-      padding:10px 16px;
-      font-size:15px;
-      font-weight:600;
-      width:100%;
-      background:linear-gradient(135deg,#6ab5ff,#ffc857);
-      color:#050816;
-      box-shadow:0 0 18px rgba(111,189,255,.7);
-      cursor:pointer;
-      margin-bottom:8px;
-    }
-    .entry-intro-hint{
-      font-size:11px;
-      opacity:.8;
-    }
-
   <style>
     :root{
       --accent:#5ba8ff;
@@ -631,6 +568,70 @@
     margin: 0 auto;
   }
 }
+        /* === 開場儀式 Overlay === */
+    .entry-intro-overlay{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:40;
+      background:radial-gradient(circle at top, rgba(3,10,30,.95), rgba(0,0,0,.96));
+      backdrop-filter:blur(16px);
+      transition:opacity .4s ease, transform .4s ease;
+    }
+    .entry-intro-overlay.hidden{
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(10px);
+    }
+
+    .entry-intro-card{
+      width:100%;
+      max-width:420px;
+      margin:0 18px;
+      border-radius:24px;
+      padding:22px 18px 18px;
+      background:linear-gradient(145deg, rgba(5,8,22,.98), rgba(7,15,35,.98));
+      border:1px solid rgba(255,200,135,.9);
+      box-shadow:0 0 26px rgba(255,200,135,.7), 0 0 40px rgba(0,0,0,.9);
+      text-align:center;
+    }
+    .entry-intro-title{
+      font-size:22px;
+      font-weight:700;
+      color:#ffc857;
+      text-shadow:0 0 12px rgba(255,200,87,.8);
+      margin:0 0 10px;
+    }
+    .entry-intro-text{
+      font-size:13px;
+      line-height:1.6;
+      margin-bottom:14px;
+    }
+    .entry-intro-time{
+      font-size:14px;
+      line-height:1.6;
+      margin-bottom:16px;
+    }
+    .entry-intro-btn{
+      border:none;
+      border-radius:999px;
+      padding:10px 16px;
+      font-size:15px;
+      font-weight:600;
+      width:100%;
+      background:linear-gradient(135deg,#6ab5ff,#ffc857);
+      color:#050816;
+      box-shadow:0 0 18px rgba(111,189,255,.7);
+      cursor:pointer;
+      margin-bottom:8px;
+    }
+    .entry-intro-hint{
+      font-size:11px;
+      opacity:.8;
+    }
+
   </style>
 </head>
 <body>
