@@ -878,7 +878,7 @@
   <button id="btnBackToCreate" class="link-btn">← 回到角色創建</button>
 
   <!-- ⭐ 下載靈體 GIF -->
-  <button id="btnDownloadSpirit" class="link-btn">⬇ 下載靈體卡 GIF</button>
+  <button id="btnDownloadSpirit" class="link-btn">⬇ 下載靈體卡</button>
 
   <!-- ⭐ 下載角色卡 PNG -->
   <button id="btnDownloadEntryCard" class="link-btn">⬇ 下載角色卡</button>
@@ -948,20 +948,26 @@
   </div>
 
   <!-- 🔊 背景音樂：同一頁 SPA，不會因畫面切換而中斷 -->
-  <audio id="bgm" src="assets/music/bg.mp3" autoplay loop></audio>
+  <audio id="bgm" src="assets/music/bg.mp3" loop></audio>
 
   <script>
     // === 基本工具 ===
-    function showScreen(id){
-      document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-      const el=document.getElementById(id);
-      if(el) el.classList.add("active");
-    }
-    function showToast(msg){
-      const t=document.getElementById("toast");
-      t.textContent=msg;
-      t.classList.add("show");
-      setTimeout(()=>t.classList.remove("show"),2000);
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  const el=document.getElementById(id);
+  if(el) el.classList.add("active");
+}
+function showToast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2000);
+}
+
+// 🎵 只準備好 bgm，不自動播放
+const bgm = document.getElementById("bgm");
+if (bgm) {
+  bgm.volume = 0.15;
     }
  // === 開場儀式 Overlay 關閉 ===
     const entryIntroOverlay = document.getElementById("entryIntroOverlay");
@@ -974,18 +980,23 @@
         // showScreen("screen-login");
       });
     }
-    // 按下「我要參加」
+// 按下「我要參加」
 document.getElementById("btnAttendYes").addEventListener("click", ()=>{
+  if (bgm && bgm.paused) {
+    bgm.play().catch(()=>{});
+  }
   entryIntroOverlay.classList.add("hidden");
   showScreen("screen-login");
 });
 
 // 按下「不方便參加」
 document.getElementById("btnAttendNo").addEventListener("click", ()=>{
+  if (bgm && bgm.paused) {
+    bgm.play().catch(()=>{});
+  }
   entryIntroOverlay.classList.add("hidden");
   showScreen("screen-no-attend");
 });
-
 // 不參加：留言送出
 document.getElementById("btnSubmitNoAttend").addEventListener("click", ()=>{
   const name = document.getElementById("noAttendName").value.trim();
@@ -1330,7 +1341,7 @@ document.getElementById("btnAttendYes").addEventListener("click", ()=>{
   entryIntroOverlay.classList.add("hidden");
   showScreen("screen-no-attend");
 });
-    // ⭐ 下載靈體卡（PNG）
+    // ⭐ 下載（PNG）
 document.getElementById("btnDownloadSpirit").addEventListener("click", () => {
   const card = document.querySelector(".spirit-card");
   if (!card) return;
