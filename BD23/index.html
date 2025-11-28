@@ -126,14 +126,14 @@
       100%{transform:translate3d(6px,4px,0) scale(1.02);}
     }
     .spirit-portrait-wrap{
-      position:absolute;
-      inset:18% 12% 18% 12%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:26px;   /* 新增：讓內框有圓角 */
-  overflow:hidden;      /* 新增：超出邊界的照片會被裁掉 */
-    }
+  position:absolute;
+  inset:0;                 /* ❗改成鋪滿整張 spirit-card */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:20px;      /* ❗跟 .spirit-card 一樣的圓角 */
+  overflow:hidden;         /* ❗多這行，超出去的照片會被裁掉 */
+}
     .spirit-portrait{
       width:100%;
       height:100%;
@@ -577,7 +577,10 @@
         <div class="spirit-orb"></div>
        <div class="spirit-portrait-wrap">
           <!-- 若沒有上傳頭像，就顯示靈體預設 -->
-          <img id="spiritPortrait" class="spirit-portrait" src="assets/characters/spirit-default.jpg"" alt="spirit portrait" />
+          <img id="spiritPortrait" 
+            class="spirit-portrait" 
+            src="assets/characters/spirit-default.jpg" 
+            alt="spirit portrait" />
         </div>
         <div class="spirit-glow-ring"></div>
         <div class="spirit-particles"></div>
