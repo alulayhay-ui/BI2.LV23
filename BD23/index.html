@@ -876,6 +876,10 @@
 
           <div class="actions">
             <button id="btnBackToCreate" class="link-btn">← 回到角色創建</button>
+
+              <!-- ✅ 新增：回到首頁按鈕 -->
+  <button id="btnBackHome" class="link-btn">⟲ 回到首頁</button>
+            
             <a href="https://www.instagram.com/allhsww/?hl=zh-tw" target="_blank" class="link-btn link-btn-ig">
               IG｜有問題私訊
             </a>
@@ -1292,6 +1296,13 @@ document.getElementById("btnSubmitNoAttend").addEventListener("click", ()=>{
     document.getElementById("btnBackToCreate").addEventListener("click",()=>{
       showScreen("screen-create");
     });
+    // ✅ 角色卡 → 回到首頁（第一頁 intro 畫面）
+const btnBackHome = document.getElementById("btnBackHome");
+if (btnBackHome) {
+  btnBackHome.addEventListener("click", () => {
+    showScreen("screen-intro");   // 切回第一頁登入儀式說明畫面
+  });
+}
 
     // === BGM：同一頁，不會因畫面切換而重播 ===
     (function(){
