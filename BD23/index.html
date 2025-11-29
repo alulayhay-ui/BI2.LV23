@@ -948,7 +948,7 @@
   </div>
 
   <!-- 🔊 背景音樂：同一頁 SPA，不會因畫面切換而中斷 -->
-  <audio id="bgm" src="assets/music/bg.mp3" autoplay loop></audio>
+  <audio id="bgm" src="assets/music/bg.mp3" loop></audio>
 
   <script>
     // === 基本工具 ===
@@ -1319,28 +1319,6 @@ if (btnBackHome) {
     showScreen("screen-intro");   // 切回第一頁登入儀式說明畫面
   });
 }
-
-    // === BGM：同一頁，不會因畫面切換而重播 ===
-    const bgm = document.getElementById("bgm");
-if (bgm) {
-  bgm.volume = 0.15;
-}
-
-// 按下「我要參加」
-document.getElementById("btnAttendYes").addEventListener("click", ()=>{
-  if (bgm && bgm.paused) {
-    bgm.play().catch(()=>{});
-  }
-  entryIntroOverlay.classList.add("hidden");
-  showScreen("screen-login");
-});
-    document.getElementById("btnAttendNo").addEventListener("click", ()=>{
-  if (bgm && bgm.paused) {
-    bgm.play().catch(()=>{});
-  }
-  entryIntroOverlay.classList.add("hidden");
-  showScreen("screen-no-attend");
-});
     // ⭐ 下載（PNG）
 document.getElementById("btnDownloadSpirit").addEventListener("click", () => {
   const card = document.querySelector(".spirit-card");
