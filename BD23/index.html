@@ -1319,12 +1319,32 @@ if (btnBackHome) {
     showScreen("screen-intro");   // 切回第一頁登入儀式說明畫面
   });
 }
-    // ⭐ 下載（PNG）
+    // ⭐ 下載靈體卡（PNG，只抓卡片實際寬高）
 document.getElementById("btnDownloadSpirit").addEventListener("click", () => {
   const card = document.querySelector(".spirit-card");
   if (!card) return;
 
-  html2canvas(card, { backgroundColor: null }).then(canvas => {
+  // 取得卡片實際寬高
+  const rect = card.getBoundingClientRect();
+  const w = rect.width;
+  const h = rect.height;
+
+  // 暫時關掉浮動動畫，避免邊界被算進去
+  const oldAnimation = card.style.animation;
+  card.style.animation = "none";
+
+  html2canvas(card, {
+    backgroundColor: null,
+    width: w,
+    height: h,
+    windowWidth: w,
+    windowHeight: h,
+    scrollX: 0,
+    scrollY: 0
+  }).then(canvas => {
+    // 還原動畫
+    card.style.animation = oldAnimation;
+
     const link = document.createElement("a");
     link.download = "spirit-card.png";
     link.href = canvas.toDataURL("image/png");
