@@ -743,7 +743,7 @@
         <div id="loginLoading" class="loading-bar">
           <div class="loading-fill" id="loginLoadingFill"></div>
         </div>
-        <div id="loginError" class="error-msg">電話格式錯誤，請確認後再試。</div>
+        <div id="loginError" class="error-msg">請輸入姓名與電話或 IG 帳號。</div>
 
         <div class="small-hint">
           登入成功後將進入角色創建畫面，並自動帶入你的姓名與聯絡方式。
@@ -1066,13 +1066,13 @@ document.getElementById("btnSubmitNoAttend").addEventListener("click", ()=>{
     const loginLoadingFill=document.getElementById("loginLoadingFill");
     const loginError=document.getElementById("loginError");
 
-   btnLogin.addEventListener("click", () => {
+ btnLogin.addEventListener("click", () => {
   loginError.style.display = "none";
 
   const name = loginName.value.trim();
-  const contact = loginPhone.value.trim();   // 電話或 IG
+  const contact = loginPhone.value.trim();   // 電話或 IG（任一種都可以）
 
-  // 🔍 驗證：只要名字不空、聯絡方式長度 > 1 即可
+  // ✅ 驗證：名字要有、聯絡方式要有（不限格式，可以是手機 / IG / LINE）
   if (!name) {
     loginError.textContent = "請輸入姓名";
     loginError.style.display = "block";
@@ -1085,29 +1085,34 @@ document.getElementById("btnSubmitNoAttend").addEventListener("click", ()=>{
     return;
   }
 
-      loginLoading.style.display="block";
-      loginLoadingFill.style.width="35%";
+  // ⏳ 顯示 loading 動畫
+  loginLoading.style.display = "block";
+  loginLoadingFill.style.width = "35%";
 
-      setTimeout(()=>{loginLoadingFill.style.width="87%";},300);
+  setTimeout(() => { loginLoadingFill.style.width = "87%"; }, 300);
 
-      setTimeout(()=>{
-        loginLoadingFill.style.width="100%";
-        setTimeout(()=>{
-          loginLoading.style.display="none";
-          // 儲存狀態
-          appState.playerName=name;
-          appState.playerPhone=phone;
-          sessionStorage.setItem("playerName",name);
-          sessionStorage.setItem("playerPhone",phone);
+  setTimeout(() => {
+    loginLoadingFill.style.width = "100%";
+    setTimeout(() => {
+      loginLoading.style.display = "none";
 
-          alert("祖靈已接受你的登入。請前往創建角色。");
-          // 帶入創角頁
-          document.getElementById("playerName").value=name;
-          document.getElementById("playerPhone").value=phone;
-          showScreen("screen-create");
-        },500);
-      },900);
-    });
+      // ✅ 儲存狀態（這裡用 contact，不再用 phone）
+      appState.playerName  = name;
+      appState.playerPhone = contact;
+
+      sessionStorage.setItem("playerName",  name);
+      sessionStorage.setItem("playerPhone", contact);
+
+      alert("祖靈已接受你的登入。請前往創建角色。");
+
+      // ✅ 帶入創角頁（也是用 contact）
+      document.getElementById("playerName").value  = name;
+      document.getElementById("playerPhone").value = contact;
+
+      showScreen("screen-create");
+    }, 500);
+  }, 900);
+});
 
     // 若之前登入過，預填
     const prevName=sessionStorage.getItem("playerName");
