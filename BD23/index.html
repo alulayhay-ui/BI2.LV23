@@ -1066,16 +1066,24 @@ document.getElementById("btnSubmitNoAttend").addEventListener("click", ()=>{
     const loginLoadingFill=document.getElementById("loginLoadingFill");
     const loginError=document.getElementById("loginError");
 
-    btnLogin.addEventListener("click",()=>{
-      loginError.style.display="none";
-      const name=loginName.value.trim();
-      const phone=loginPhone.value.trim();
-      const digits=phone.replace(/\D/g,"");
+   btnLogin.addEventListener("click", () => {
+  loginError.style.display = "none";
 
-      if(!name||digits.length<8){
-        loginError.style.display="block";
-        return;
-      }
+  const name = loginName.value.trim();
+  const contact = loginPhone.value.trim();   // 電話或 IG
+
+  // 🔍 驗證：只要名字不空、聯絡方式長度 > 1 即可
+  if (!name) {
+    loginError.textContent = "請輸入姓名";
+    loginError.style.display = "block";
+    return;
+  }
+
+  if (!contact || contact.length < 2) {
+    loginError.textContent = "請輸入電話或 IG 帳號";
+    loginError.style.display = "block";
+    return;
+  }
 
       loginLoading.style.display="block";
       loginLoadingFill.style.width="35%";
